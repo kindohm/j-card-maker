@@ -1,7 +1,8 @@
 import { useAtom } from "jotai";
 import { AppContext } from "../AppContext";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
+import { getColorCombo } from "../util/getColorCombo";
 
 const InputGroup = styled(Form.Group)`
   margin-top: 1rem;
@@ -23,13 +24,24 @@ export const Controls = () => {
     showBounds,
   } = context;
 
-  console.log("showBounds", context);
   const valueChanged = (field: string, value: string | number) => {
     setContext({ ...context, [field]: value });
   };
 
+  const randomize = () => {
+    const { foreground, background } = getColorCombo();
+    setContext({
+      ...context,
+      foregroundColor: foreground,
+      backgroundColor: background,
+    });
+  };
+
   return (
     <div>
+      <InputGroup>
+        <Button onClick={randomize}>randomize</Button>
+      </InputGroup>
       <InputGroup>
         <Form.Label>Front</Form.Label>
         <Form.Control
