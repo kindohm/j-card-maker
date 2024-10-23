@@ -42,6 +42,7 @@ export const Controls = () => {
       <InputGroup>
         <Button onClick={randomize}>randomize</Button>
       </InputGroup>
+
       <InputGroup>
         <Form.Label>Front</Form.Label>
         <Form.Control
