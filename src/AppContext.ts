@@ -11,6 +11,7 @@ export const initialContext = {
   fontSizeSpine: 0.3,
   fontSizeInside: 0.1,
   fontSizeBack: 0.1,
+  showBounds: true,
 };
 
 export const AppContext = atom(initialContext);

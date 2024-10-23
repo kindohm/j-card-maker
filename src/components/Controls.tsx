@@ -20,8 +20,10 @@ export const Controls = () => {
     fontSizeSpine,
     fontSizeBack,
     fontSizeInside,
+    showBounds,
   } = context;
 
+  console.log("showBounds", context);
   const valueChanged = (field: string, value: string | number) => {
     setContext({ ...context, [field]: value });
   };
@@ -148,6 +150,14 @@ export const Controls = () => {
           }
         />
       </InputGroup>
+      <Form.Check // prettier-ignore
+        type="checkbox"
+        label="Show Bounds"
+        checked={showBounds}
+        onChange={(x) =>
+          setContext({ ...context, showBounds: x.target.checked })
+        }
+      />
     </div>
   );
 };
