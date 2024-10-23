@@ -8,14 +8,14 @@ import { Controls } from "./components/Controls";
 
 function App() {
   return (
-    <Container>
+    <Container className="mt-5">
       <Row>
         <Col>
           <div>
             <Preview />
           </div>
         </Col>
-        <Col xs={4}>
+        <Col xs={5}>
           <Controls />
         </Col>
       </Row>

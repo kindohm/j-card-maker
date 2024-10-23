@@ -2,7 +2,18 @@ import { AppContext } from "../AppContext";
 import { useAtomValue } from "jotai";
 
 export const Preview = () => {
-  const { front, inside, spine, back } = useAtomValue(AppContext);
+  const {
+    backgroundColor,
+    foregroundColor,
+    front,
+    inside,
+    spine,
+    back,
+    fontSizeFront,
+    fontSizeBack,
+    fontSizeInside,
+    fontSizeSpine,
+  } = useAtomValue(AppContext);
 
   return (
     <svg
@@ -10,7 +21,13 @@ export const Preview = () => {
       height="4.25in"
       style={{ border: "solid 1px black", background: "#ffffff" }}
     >
-      <rect x="0" y="0" width="100%" height="100%" fill="#00ffa2"></rect>
+      <rect
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        fill={`${backgroundColor}`}
+      ></rect>
 
       <rect
         x="0.125in"
@@ -83,7 +100,11 @@ export const Preview = () => {
         transform="translate(100, 20) rotate(90)"
       >
         <div
-          className="back-text"
+          style={{
+            color: `${foregroundColor}`,
+            fontSize: `${fontSizeBack}in`,
+            lineHeight: `${fontSizeBack}in`,
+          }}
           dangerouslySetInnerHTML={{ __html: back }}
         ></div>
       </foreignObject>
@@ -94,21 +115,33 @@ export const Preview = () => {
         transform="translate(155, 20) rotate(90)"
       >
         <div
-          className="spine-text"
+          style={{
+            color: `${foregroundColor}`,
+            fontSize: `${fontSizeSpine}in`,
+            lineHeight: `${fontSizeSpine}in`,
+          }}
           dangerouslySetInnerHTML={{ __html: spine }}
         ></div>
       </foreignObject>
 
       <foreignObject x="1.75in" y="0.1875in" width="2.4375in" height="3.5in">
         <div
-          className="front-text"
+          style={{
+            color: `${foregroundColor}`,
+            fontSize: `${fontSizeFront}in`,
+            lineHeight: `${fontSizeFront}in`,
+          }}
           dangerouslySetInnerHTML={{ __html: front }}
         ></div>
       </foreignObject>
 
       <foreignObject x="4.3125in" y="0.1875in" width="2.375in" height="3.5in">
         <div
-          className="inside-text"
+          style={{
+            color: `${foregroundColor}`,
+            fontSize: `${fontSizeInside}in`,
+            lineHeight: `${fontSizeInside}in`,
+          }}
           dangerouslySetInnerHTML={{ __html: inside }}
         ></div>
       </foreignObject>
