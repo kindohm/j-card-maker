@@ -9,7 +9,10 @@ export const Preview = () => {
     backgroundColor,
     foregroundColor,
     front,
+    frontAlignBottom,
+    frontAlignRight,
     inside,
+    insideAlignBottom,
     spine,
     back,
     fontSizeFront,
@@ -18,6 +21,35 @@ export const Preview = () => {
     fontSizeSpine,
     showBounds,
   } = useAtomValue(AppContext);
+
+  const insideStyleBase: React.CSSProperties = {
+    color: `${foregroundColor}`,
+    fontSize: `${fontSizeInside}in`,
+    lineHeight: `${fontSizeInside}in`,
+    position: "absolute",
+  };
+
+  const frontStyleBase: React.CSSProperties = {
+    color: `${foregroundColor}`,
+    fontSize: `${fontSizeFront}in`,
+    lineHeight: `${fontSizeFront}in`,
+    position: "absolute",
+    width: "2.4375in",
+  };
+
+  let insideStyle: React.CSSProperties = insideStyleBase;
+  if (insideAlignBottom) {
+    insideStyle = { ...insideStyle, bottom: 0 };
+  }
+
+  let frontStyle: React.CSSProperties = frontStyleBase;
+  if (frontAlignBottom) {
+    frontStyle = { ...frontStyle, bottom: 0 };
+  }
+
+  if (frontAlignRight) {
+    frontStyle = { ...frontStyle, textAlign: "right" };
+  }
 
   return (
     <>
@@ -133,24 +165,26 @@ export const Preview = () => {
           ></div>
         </foreignObject>
 
-        <foreignObject x="1.75in" y="0.1875in" width="2.4375in" height="3.5in">
+        <foreignObject
+          x="1.75in"
+          y="0.1875in"
+          width="2.6875in"
+          height="3.875in"
+        >
           <div
-            style={{
-              color: `${foregroundColor}`,
-              fontSize: `${fontSizeFront}in`,
-              lineHeight: `${fontSizeFront}in`,
-            }}
+            style={frontStyle}
             dangerouslySetInnerHTML={{ __html: front }}
           ></div>
         </foreignObject>
 
-        <foreignObject x="4.3125in" y="0.1875in" width="2.375in" height="3.5in">
+        <foreignObject
+          x="4.3125in"
+          y="0.1875in"
+          width="2.375in"
+          height="3.875in"
+        >
           <div
-            style={{
-              color: `${foregroundColor}`,
-              fontSize: `${fontSizeInside}in`,
-              lineHeight: `${fontSizeInside}in`,
-            }}
+            style={insideStyle}
             dangerouslySetInnerHTML={{ __html: inside }}
           ></div>
         </foreignObject>

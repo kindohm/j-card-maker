@@ -13,6 +13,9 @@ export type AppContextType = {
   fontSizeInside: number;
   fontSizeBack: number;
   showBounds: boolean;
+  insideAlignBottom: boolean;
+  frontAlignBottom: boolean;
+  frontAlignRight: boolean;
 };
 
 export const initialContext: AppContextType = {
@@ -27,6 +30,9 @@ export const initialContext: AppContextType = {
   fontSizeInside: 0.1,
   fontSizeBack: 0.1,
   showBounds: true,
+  insideAlignBottom: false,
+  frontAlignRight: false,
+  frontAlignBottom: false,
 };
 
 const local = read();

@@ -16,6 +16,7 @@ export const Controls = () => {
     backgroundColor,
     front,
     inside,
+    insideAlignBottom,
     spine,
     back,
     fontSizeFront,
@@ -23,6 +24,8 @@ export const Controls = () => {
     fontSizeBack,
     fontSizeInside,
     showBounds,
+    frontAlignBottom,
+    frontAlignRight,
   } = context;
 
   const valueChanged = (field: string, value: string | number) => {
@@ -168,13 +171,54 @@ export const Controls = () => {
           }
         />
       </InputGroup>
-      <Form.Check // prettier-ignore
+      <Form.Check
         type="checkbox"
         label="Show Bounds"
         checked={showBounds}
         onChange={(x) =>
           setContext({ ...context, showBounds: x.target.checked })
         }
+      />
+      <Form.Check
+        type="checkbox"
+        label="Front Align Bottom"
+        checked={frontAlignBottom}
+        onChange={(x) => {
+          const newContext = {
+            ...context,
+            frontAlignBottom: x.target.checked,
+          };
+          setContext(newContext);
+          write(newContext);
+        }}
+      />
+
+      <Form.Check
+        type="checkbox"
+        label="Front Align Right"
+        checked={frontAlignRight}
+        onChange={(x) => {
+          const newContext = {
+            ...context,
+            frontAlignRight: x.target.checked,
+          };
+          setContext(newContext);
+          write(newContext);
+        }}
+      />
+
+      <Form.Check
+        type="checkbox"
+        label="Inside Align Bottom"
+        checked={insideAlignBottom}
+        onChange={(x) => {
+          const newContext = {
+            ...context,
+            insideAlignBottom: x.target.checked,
+          };
+          setContext(newContext);
+          write(newContext);
+        }}
       />
     </div>
   );
