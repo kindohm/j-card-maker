@@ -1,6 +1,11 @@
 import { atom } from "jotai";
 import { read } from "./util/storage";
 
+export enum JCardType {
+  JP0,
+  JP1,
+}
+
 export type AppContextType = {
   backgroundColor: string;
   foregroundColor: string;
@@ -16,6 +21,7 @@ export type AppContextType = {
   insideAlignBottom: boolean;
   frontAlignBottom: boolean;
   frontAlignRight: boolean;
+  type: JCardType;
 };
 
 export const initialContext: AppContextType = {
@@ -33,6 +39,7 @@ export const initialContext: AppContextType = {
   insideAlignBottom: false,
   frontAlignRight: false,
   frontAlignBottom: false,
+  type: JCardType.JP0,
 };
 
 const local = read();

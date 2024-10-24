@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { AppContext } from "../AppContext";
+import { AppContext, JCardType } from "../AppContext";
 import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import { getColorCombo } from "../util/getColorCombo";
@@ -26,6 +26,7 @@ export const Controls = () => {
     showBounds,
     frontAlignBottom,
     frontAlignRight,
+    type,
   } = context;
 
   const valueChanged = (field: string, value: string | number) => {
@@ -215,6 +216,34 @@ export const Controls = () => {
           const newContext = {
             ...context,
             insideAlignBottom: x.target.checked,
+          };
+          setContext(newContext);
+          write(newContext);
+        }}
+      />
+
+      <Form.Check
+        type="radio"
+        label="1-panel"
+        checked={type === JCardType.JP0}
+        onChange={(x) => {
+          const newContext = {
+            ...context,
+            type: x.target.checked ? JCardType.JP0 : JCardType.JP1,
+          };
+          setContext(newContext);
+          write(newContext);
+        }}
+      />
+
+      <Form.Check
+        type="radio"
+        label="2-panel"
+        checked={type === JCardType.JP1}
+        onChange={(x) => {
+          const newContext = {
+            ...context,
+            type: x.target.checked ? JCardType.JP1 : JCardType.JP0,
           };
           setContext(newContext);
           write(newContext);
