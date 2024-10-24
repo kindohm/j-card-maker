@@ -2,7 +2,7 @@ import { AppContext } from "../AppContext";
 import { useAtomValue } from "jotai";
 import { useRef } from "react";
 
-export const Preview = () => {
+export const Preview1Panel = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const {
@@ -55,7 +55,7 @@ export const Preview = () => {
     <>
       <svg
         ref={svgRef}
-        width="6.875in"
+        width="4.375in"
         height="4.25in"
         style={{ border: "solid 1px black", background: "#ffffff" }}
       >
@@ -72,7 +72,7 @@ export const Preview = () => {
             <rect
               x="0.125in"
               y="0.125in"
-              width="6.625in"
+              width="4.125in"
               height="4in"
               fill="#ffffff00"
               stroke="red"
@@ -125,14 +125,6 @@ export const Preview = () => {
               fill="#ffffff00"
               stroke="red"
             ></rect>
-            <rect
-              x="4.3125in"
-              y="0.1875in"
-              width="2.375in"
-              height="3.875in"
-              fill="#ffffff00"
-              stroke="red"
-            ></rect>
           </g>
         )}
         <foreignObject
@@ -174,18 +166,6 @@ export const Preview = () => {
           <div
             style={frontStyle}
             dangerouslySetInnerHTML={{ __html: front }}
-          ></div>
-        </foreignObject>
-
-        <foreignObject
-          x="4.3125in"
-          y="0.1875in"
-          width="2.375in"
-          height="3.875in"
-        >
-          <div
-            style={insideStyle}
-            dangerouslySetInnerHTML={{ __html: inside }}
           ></div>
         </foreignObject>
       </svg>
