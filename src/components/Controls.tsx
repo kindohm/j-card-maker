@@ -3,6 +3,7 @@ import { AppContext } from "../AppContext";
 import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import { getColorCombo } from "../util/getColorCombo";
+import { write } from "../util/storage";
 
 const InputGroup = styled(Form.Group)`
   margin-top: 1rem;
@@ -25,16 +26,20 @@ export const Controls = () => {
   } = context;
 
   const valueChanged = (field: string, value: string | number) => {
-    setContext({ ...context, [field]: value });
+    const newContext = { ...context, [field]: value };
+    setContext(newContext);
+    write(newContext);
   };
 
   const randomize = () => {
     const { foreground, background } = getColorCombo();
-    setContext({
+    const newContext = {
       ...context,
       foregroundColor: foreground,
       backgroundColor: background,
-    });
+    };
+    setContext(newContext);
+    write(newContext);
   };
 
   return (

@@ -1,6 +1,21 @@
 import { atom } from "jotai";
+import { read } from "./util/storage";
 
-export const initialContext = {
+export type AppContextType = {
+  backgroundColor: string;
+  foregroundColor: string;
+  spine: string;
+  front: string;
+  inside: string;
+  back: string;
+  fontSizeFront: number;
+  fontSizeSpine: number;
+  fontSizeInside: number;
+  fontSizeBack: number;
+  showBounds: boolean;
+};
+
+export const initialContext: AppContextType = {
   backgroundColor: "#cccccc",
   foregroundColor: "#333333",
   spine: "artist - album",
@@ -14,4 +29,5 @@ export const initialContext = {
   showBounds: true,
 };
 
-export const AppContext = atom(initialContext);
+const local = read();
+export const AppContext = atom(local);
