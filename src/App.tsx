@@ -10,8 +10,6 @@ import { useAtomValue } from "jotai";
 function App() {
   const { type } = useAtomValue(AppContext);
 
-  console.log("type", type, type === JCardType.JP0);
-
   return (
     <Container className="mt-5">
       <Row>
