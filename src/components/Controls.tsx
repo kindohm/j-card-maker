@@ -46,15 +46,64 @@ export const Controls = () => {
     write(newContext);
   };
 
+  const download = () => {
+    const svg = document.querySelector("svg");
+    if (!svg) {
+      return;
+    }
+
+    const data = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([data], {
+      type: "image/svg+xml;charset=utf-8",
+    });
+
+    console.log("svgBlob", svgBlob);
+
+    // convert the blob object to a dedicated URL
+    const url = URL.createObjectURL(svgBlob);
+
+    // load the SVG blob to a flesh image object
+    const img = new Image();
+    img.addEventListener("load", () => {
+      // draw the image on an ad-hoc canvas
+      const bbox = svg.getBBox();
+
+      const canvas = document.createElement("canvas");
+      canvas.width = bbox.width;
+      canvas.height = bbox.height;
+
+      const context = canvas.getContext("2d");
+      if (!context) {
+        return;
+      }
+      context.drawImage(img, 0, 0, bbox.width, bbox.height);
+
+      URL.revokeObjectURL(url);
+
+      // trigger a synthetic download operation with a temporary link
+      const a = document.createElement("a");
+      a.download = "image.png";
+      document.body.appendChild(a);
+      a.href = canvas.toDataURL();
+      a.click();
+      a.remove();
+    });
+    img.src = url;
+  };
+
   return (
     <div>
       <InputGroup>
         <Button onClick={randomize}>randomize</Button>
+        <Button onClick={download}>download</Button>
       </InputGroup>
 
       <InputGroup>
         <Form.Label>Front</Form.Label>
         <Form.Control
+          as="textarea"
+          cols={100}
+          rows={5}
           type="text"
           placeholder="front text"
           value={front}

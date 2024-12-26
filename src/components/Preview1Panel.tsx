@@ -2,6 +2,17 @@ import { AppContext } from "../AppContext";
 import { useAtomValue } from "jotai";
 import { useRef } from "react";
 
+const getTSpans = (orig: string, fontSize: number) => {
+  const parts = orig.split("\n");
+  return parts
+    .map((part) => {
+      return `<tspan x="0" dy="${fontSize}in">${
+        part.length > 0 ? part : "_"
+      }</tspan>`;
+    })
+    .join("\n");
+};
+
 export const Preview1Panel = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -21,6 +32,9 @@ export const Preview1Panel = () => {
     fontSizeSpine,
     showBounds,
   } = useAtomValue(AppContext);
+
+  const formattedBack = getTSpans(back, fontSizeBack);
+  const formattedFront = getTSpans(front, fontSizeFront);
 
   const insideStyleBase: React.CSSProperties = {
     color: `${foregroundColor}`,
@@ -57,7 +71,11 @@ export const Preview1Panel = () => {
         ref={svgRef}
         width="4.375in"
         height="4.25in"
-        style={{ border: "solid 1px black", background: "#ffffff" }}
+        style={{
+          border: "solid 1px black",
+          background: "#ffffff",
+          fontFamily: "sans-serif",
+        }}
       >
         <rect
           x="0"
@@ -127,22 +145,19 @@ export const Preview1Panel = () => {
             ></rect>
           </g>
         )}
-        <foreignObject
-          width="4in"
-          height="2in"
-          transform="translate(100, 20) rotate(90)"
-        >
-          <div
-            style={{
-              color: `${foregroundColor}`,
-              fontSize: `${fontSizeBack}in`,
-              lineHeight: `${fontSizeBack}in`,
-            }}
-            dangerouslySetInnerHTML={{ __html: back }}
-          ></div>
-        </foreignObject>
 
-        <foreignObject
+        <text
+          textAnchor="start"
+          alignmentBaseline="middle"
+          transform="translate(110, 20) rotate(90)"
+          fill={foregroundColor}
+          style={{
+            fontSize: `${fontSizeBack}in`,
+          }}
+          dangerouslySetInnerHTML={{ __html: formattedBack }}
+        ></text>
+
+        {/* <foreignObject
           width="4in"
           height="2in"
           transform="translate(155, 20) rotate(90)"
@@ -155,9 +170,20 @@ export const Preview1Panel = () => {
             }}
             dangerouslySetInnerHTML={{ __html: spine }}
           ></div>
-        </foreignObject>
+        </foreignObject> */}
 
-        <foreignObject
+        <text
+          textAnchor="start"
+          alignmentBaseline="middle"
+          transform="translate(130, 20) rotate(90)"
+          fill={foregroundColor}
+          style={{
+            fontSize: `${fontSizeSpine}in`,
+          }}
+          dangerouslySetInnerHTML={{ __html: spine }}
+        ></text>
+
+        {/* <foreignObject
           x="1.75in"
           y="0.1875in"
           width="2.6875in"
@@ -167,7 +193,16 @@ export const Preview1Panel = () => {
             style={frontStyle}
             dangerouslySetInnerHTML={{ __html: front }}
           ></div>
-        </foreignObject>
+        </foreignObject> */}
+
+        <text
+          textAnchor="start"
+          alignmentBaseline="middle"
+          transform="translate(170, 10)"
+          fill={foregroundColor}
+          style={frontStyle}
+          dangerouslySetInnerHTML={{ __html: formattedFront }}
+        ></text>
       </svg>
     </>
   );
